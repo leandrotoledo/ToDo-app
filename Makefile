@@ -13,7 +13,7 @@ lint:
 	pylint -E src/core
 
 test:
-	nosetests
+	nosetests --with-isolation
 
 help:
 	@echo "Available targets:"
