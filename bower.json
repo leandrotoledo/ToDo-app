@@ -1,0 +1,7 @@
+{
+  "name": "ToDo-app",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "bootstrap": "~3.3.5"
+  }
+}
