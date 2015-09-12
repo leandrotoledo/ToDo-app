@@ -1,0 +1,7 @@
+Flask
+Flask-RESTful
+pony
+nose
+pylint
+flake8
+requests
