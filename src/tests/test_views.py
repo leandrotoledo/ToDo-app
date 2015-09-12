@@ -23,15 +23,26 @@ class NoteViewTest(unittest.TestCase):
     @db_session
     def test_add_note(self):
         data = {'annotation': 'This is an annotation'}
-
         response = self.app.post('/notes', data=data)
 
         self.assertEqual(response.status_code, 201)
 
     @db_session
     def test_get_note(self):
-        response = self.app.get('/note/1').get_data()
-        note = json.loads(response.decode())['data']
+        response = self.app.get('/note/1')
+        note = json.loads(response.get_data().decode())['data']
 
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(note['id'], 1)
         self.assertEqual(note['annotation'], 'This is an annotation')
+
+    @db_session
+    def test_put_note(self):
+        data = {'annotation': 'This is a new annotation'}
+
+        response = self.app.put('/note/1', data=data)
+        note = json.loads(response.get_data().decode())['data']
+
+        self.assertEqual(note['id'], 1)
+        self.assertEqual(note['annotation'], 'This is a new annotation')
+        self.assertEqual(response.status_code, 200)

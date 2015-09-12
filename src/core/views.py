@@ -12,6 +12,15 @@ class NoteResource(Resource):
     def get(self, note_id):
         return {'data': Note[note_id].to_dict()}
 
+    @db_session
+    def put(self, note_id):
+        note = Note[note_id]
+        note.annotation = request.form['annotation']
+
+        db.commit()
+
+        return {'data': note.to_dict()}
+
 class NotesResource(Resource):
     @db_session
     def post(self):
