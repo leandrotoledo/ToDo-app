@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="noteApp">
 <head>
     <title>ToDo App</title>
     <link href="static/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body>
+  <div class="container main-content" ng-controller="NoteAddCtrl">
+    <form ng-submit="submit()">
+      <div class="form-group">
+        <label for="annotation" class="control-label">Annotation</label>
+        <input type="text"
+               name="annotation"
+               ng-model="annotation"
+               required="required" />
+      </div>
 
-<script src="static/libs/angular/angular.min.js"></script>
+      <div class="form-group">
+        <button class="btn btn-primary"
+                type="submit">
+                <span>Add</span>
+        </button>
+      </div>
+
+      <pre>{{ annotation }}</pre>
+    </form>
+  </div>
+
+  <script src="static/libs/angular/angular.min.js"></script>
+  <script src="static/js/main.js"></script>
 </body>
 </html>

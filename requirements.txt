@@ -4,4 +4,3 @@ pony
 nose
 pylint
 flake8
-requests

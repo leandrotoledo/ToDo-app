@@ -21,16 +21,19 @@ class NoteViewTest(unittest.TestCase):
         db.drop_all_tables(with_all_data=True)
 
     @db_session
-    def test_1_add_note(self):
+    def test_1_post_note(self):
         data = {'annotation': 'This is an annotation'}
-        response = self.app.post('/notes', data=data)
+        response = self.app.post('/notes',
+                                 data=json.dumps(data),
+                                 content_type='application/json')
 
         self.assertEqual(response.status_code, 201)
 
     @db_session
     def test_2_get_note(self):
         response = self.app.get('/note/1')
-        note = json.loads(response.get_data().decode())['data']
+
+        note = json.loads(response.data.decode())['data']
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(note['id'], 1)
@@ -40,12 +43,17 @@ class NoteViewTest(unittest.TestCase):
     def test_3_put_note(self):
         data = {'annotation': 'This is a new annotation'}
 
-        response = self.app.put('/note/1', data=data)
-        note = json.loads(response.get_data().decode())['data']
+        response = self.app.put('/note/1',
+                                data=json.dumps(data),
+                                content_type='application/json')
+
+
+        self.assertEqual(response.status_code, 200)
+
+        note = json.loads(response.data.decode())['data']
 
         self.assertEqual(note['id'], 1)
         self.assertEqual(note['annotation'], 'This is a new annotation')
-        self.assertEqual(response.status_code, 200)
 
     @db_session
     def test_4_delete_note(self):

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import json
 from flask import Flask, request
 from flask_restful import Resource, Api
 from pony.orm import db_session
@@ -15,7 +16,7 @@ class NoteResource(Resource):
     @db_session
     def put(self, note_id):
         note = Note[note_id]
-        note.annotation = request.form['annotation']
+        note.annotation = request.json['annotation']
 
         db.commit()
 
@@ -33,8 +34,7 @@ class NoteResource(Resource):
 class NotesResource(Resource):
     @db_session
     def post(self):
-        annotation = request.form['annotation']
-        note = Note(annotation=annotation)
+        note = Note(annotation=request.json['annotation'])
 
         db.commit()
 
