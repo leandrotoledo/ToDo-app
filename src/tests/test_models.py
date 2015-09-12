@@ -15,14 +15,31 @@ class NoteModelTest(unittest.TestCase):
         db.drop_all_tables(with_all_data=True)
 
     @db_session
-    def test_add_note(self):
-        Note(annotation='This is a test')
+    def test_1_add_note(self):
+        note = Note(annotation='This is an annotation')
+        db.commit()
 
-        self.assertEquals(Note[1].id, 1)
-        self.assertEquals(Note[1].annotation, 'This is a test')
+        self.assertEquals(note.id, 1)
+        self.assertEquals(note.annotation, 'This is an annotation')
 
     @db_session
-    def test_del_note(self):
+    def test_2_get_note(self):
+        note = Note[1]
+
+        self.assertEquals(note.id, 1)
+        self.assertEquals(note.annotation, 'This is an annotation')
+
+    @db_session
+    def test_3_update_note(self):
+        note = Note[1]
+        note.annotation = 'This is a new annotation'
+        db.commit()
+
+        self.assertEquals(note.id, 1)
+        self.assertEquals(note.annotation, 'This is a new annotation')
+
+    @db_session
+    def test_4_delete_note(self):
         note = Note[1]
         note.delete()
 

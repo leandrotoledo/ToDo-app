@@ -21,6 +21,15 @@ class NoteResource(Resource):
 
         return {'data': note.to_dict()}
 
+    @db_session
+    def delete(self, note_id):
+        note = Note[note_id]
+        note.delete()
+
+        db.commit()
+
+        return '', 204
+
 class NotesResource(Resource):
     @db_session
     def post(self):
