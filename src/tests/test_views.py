@@ -23,7 +23,7 @@ class NoteViewTest(unittest.TestCase):
     @db_session
     def test_1_post_note(self):
         data = {'annotation': 'This is an annotation'}
-        response = self.app.post('/notes',
+        response = self.app.post('/note',
                                  data=json.dumps(data),
                                  content_type='application/json')
 
