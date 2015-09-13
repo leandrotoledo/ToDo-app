@@ -1,5 +1,6 @@
-Flask
-Flask-RESTful
+flask
+flask-restful
+flask-restplus
 pony
 nose
 pylint
